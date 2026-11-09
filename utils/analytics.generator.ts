@@ -11,16 +11,19 @@ export async function generateLast12MothsData<T extends Document>(
   const last12Months: MonthData[] = [];
   const currentDate = new Date();
   currentDate.setDate(currentDate.getDate() + 1);
+
   for (let i = 11; i >= 0; i--) {
     const endDate = new Date(
       currentDate.getFullYear(),
-      currentDate.getMonth() - i * 28,
+      currentDate.getMonth(),
+      currentDate.getDate() - i * 28,
     );
     const startDate = new Date(
-      currentDate.getFullYear(),
-      currentDate.getMonth() - 28,
+      endDate.getFullYear(),
+      endDate.getMonth(),
+      endDate.getDate() - 28,
     );
-    const monthYear = endDate.toLocaleDateString("default", {
+    const monthYear = endDate.toLocaleDateString("en-US", {
       day: "numeric",
       month: "short",
       year: "numeric",

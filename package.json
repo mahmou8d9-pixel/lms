@@ -6,11 +6,12 @@
   "author": "Mahmoud Mohamed",
   "type": "commonjs",
   "main": "server.js",
- "scripts": {
-  "build": "tsc",
-  "start": "node dist/server.js",
-  "dev": "ts-node-dev --respawn --transpile-only server.ts"
-},
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/server.js",
+    "dev": "ts-node-dev --respawn --transpile-only server.ts",
+    "seed": "ts-node seed.ts"
+  },
   "dependencies": {
     "@types/cookie-parser": "^1.4.10",
     "@types/cors": "^2.8.19",
