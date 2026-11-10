@@ -19,8 +19,11 @@ const refreshTokenExpire = parseInt(
   (process.env.REFRESH_TOKEN_EXPIRE as string) || "3",
 );
 
-// ✅ دالة تقرأ NODE_ENV في وقت الاستدعاء وليس وقت التحميل
-const getIsProduction = () => process.env.NODE_ENV === "production";
+// ✅ دالة تقرأ بيئة التشغيل وتتأكد من تفعيل خيارات الإنتاج إذا كان السيرفر على Railway أو NODE_ENV=production
+const getIsProduction = () =>
+  process.env.NODE_ENV === "production" ||
+  Boolean(process.env.RAILWAY_ENVIRONMENT) ||
+  Boolean(process.env.RAILWAY_PROJECT_ID);
 
 export const getAccessTokenOptions = (): ITokenOptions => ({
   expires: new Date(Date.now() + accessTokenExpire * 60 * 60 * 1000),
