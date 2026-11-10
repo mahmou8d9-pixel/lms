@@ -8,8 +8,7 @@ import path from "path";
 import ejs, { name } from "ejs";
 import sendEmail from "../utils/sendMail";
 import NotificationModel from "../models/notification.model";
-import { newOrder } from "../services/order.service";
-import { getAllCoursesService } from "../services/course.service";
+import { newOrder, getAllOrdersService } from "../services/order.service";
 import { redis } from "../utils/redis";
 require("dotenv").config();
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
@@ -96,7 +95,7 @@ export const createOrder = CatchAsyncError(
 export const getAllOrders = CatchAsyncError(
   async (req: Request, res: Response, next: NextFunction) => {
     try {
-      getAllCoursesService(res);
+      getAllOrdersService(res);
     } catch (error: any) {
       return next(new ErrorHandler(error.message, 500));
     }

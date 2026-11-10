@@ -376,8 +376,14 @@ export const getAllUsers = CatchAsyncError(
 export const updateUserRole = CatchAsyncError(
   async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const { id, role } = req.body;
-      updateUserRoleService(res, id, role);
+      const { id, email, role } = req.body;
+      if (!id && !email) {
+        return next(new ErrorHandler("User ID or Email is required", 400));
+      }
+      if (!role) {
+        return next(new ErrorHandler("Role is required", 400));
+      }
+      await updateUserRoleService(res, id, role, email, next);
     } catch (error: any) {
       return next(new ErrorHandler(error.message, 500));
     }
